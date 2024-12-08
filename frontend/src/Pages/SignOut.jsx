@@ -4,10 +4,12 @@ import axios from 'axios';
 
 export default function SignOut() {
   const [formData, setFormData] = useState({
-    name: '', // Changed from 'username' to 'name'
+    name: '',
     email: '',
     password: '',
   });
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -19,9 +21,10 @@ export default function SignOut() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/auth/register', // Ensure this URL matches the backend route
+        'http://localhost:5000/api/auth/register',
         formData,
         {
           headers: {
@@ -29,13 +32,17 @@ export default function SignOut() {
           },
         }
       );
+
       if (response.data.success) {
-        navigate('/signin'); // Redirect on successful signup
+        setError(null);
+        navigate('/sign-in'); // Redirect on successful signup
       } else {
-        console.error('Signup failed:', response.data.message);
+        setError(response.data.message || 'Signup failed');
       }
-    } catch (error) {
-      console.error('Signup error:', error.message);
+    } catch (err) {
+      setError(err.response?.data?.message || err.message || 'Something went wrong');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -68,10 +75,11 @@ export default function SignOut() {
           value={formData.password}
         />
         <button
+          disabled={loading}
           type="submit"
           className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
         >
-          Sign up
+          {loading ? 'Loading...' : 'Sign up'}
         </button>
       </form>
       <div className="flex gap-2 mt-5">
@@ -80,6 +88,7 @@ export default function SignOut() {
           <span className="text-blue-700">Sign in</span>
         </Link>
       </div>
+      {error && <p className="text-red-500 mt-5">{error}</p>}
     </div>
   );
 }
