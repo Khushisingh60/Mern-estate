@@ -9,7 +9,7 @@ import Contextprovider from './Context/Contextprovider';
 
 export default function App(){
   return (
-    <Contextprovider>
+  <Contextprovider>
   <BrowserRouter>
   <Header/>
   <Routes>
