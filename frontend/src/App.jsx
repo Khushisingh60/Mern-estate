@@ -5,9 +5,12 @@ import About from './Pages/About'
 import Profile from './Pages/Profile'
 import Home from './Pages/home'
 import Header from './Components/Header'
+import Contextprovider from './Context/Contextprovider';
 
 export default function App(){
-  return <BrowserRouter>
+  return (
+    <Contextprovider>
+  <BrowserRouter>
   <Header/>
   <Routes>
     <Route path='/' element={<Home/>}/>
@@ -17,6 +20,8 @@ export default function App(){
     <Route path='/profile' element={<Profile/>}/>
   </Routes>
   </BrowserRouter>
+  </Contextprovider>
+  );
 }
 
 

@@ -2,6 +2,7 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/user.model.js';
+import authmiddleware from '../middleware/authmiddleware.js';
 
 const router = express.Router();
 
@@ -33,5 +34,31 @@ router.post('/register', async (req, res) => {
     return res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
+
+router.post('/login',async (req,res)=>{
+    try{
+        const {email,password}=req.body;
+        const user=await User.findOne({email})
+        if(!user){
+            return res.status(401).json({success:false,message:"User not exist"})
+        }
+
+        const checkpassword= await bcrypt.compare(password,user.password)
+
+        if(!checkpassword){
+            return res.status(401).json({success:false,message:"wrong credentials"})
+        }
+
+        const token = jwt.sign({id: user._id},"secretkeyofrealestateapp123@#",{expiresIn:"5h"})
+
+        return res.status(200).json({success:true,token,user:{name: user.name},message:"logged in Successfully"})
+    }catch(error){
+        return res.status(500).json({success:false,message:"Error in login"})
+    }
+})
+
+router.get('/verify',authmiddleware,async (req,res)=>{
+    return res.status(200).json({success:true ,user:req.user})
+})
 
 export default router;
