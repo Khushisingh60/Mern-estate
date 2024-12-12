@@ -24,7 +24,7 @@ const Contextprovider = ({ children }) => {
           return;
         }
 
-        const res = await axios.get('http://localhost:5000/api/auth/verify', {
+        const res = await axios.get('http://localhost:3000/api/auth/verify', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
