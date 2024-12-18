@@ -5,7 +5,9 @@ import About from './Pages/About'
 import Profile from './Pages/Profile'
 import Home from './Pages/home'
 import Header from './Components/Header'
-
+import SavedPosts from './Pages/SavedPosts';
+import NewsDetails from './Pages/Card'
+import NewsList from './Pages/NewsList'
 import PrivateRoute from './Components/PrivateRoute'
 import CreateListing from './Pages/CreateListing';
 import UpdateListing from './Pages/UpdateListing';
@@ -23,6 +25,9 @@ export default function App(){
     <Route path='/sign-in' element={<Signin/>}/>
     <Route path='/sign-up' element={<SignOut/>}/>
     <Route path='/about' element={<About/>}/>
+    <Route path="/saved/:userId" element={<SavedPosts />} />
+    <Route path="/news" element={<NewsList />} />
+    
     <Route path='/search' element={<Search />} />
         <Route path='/listing/:listingId' element={<Listing />} />
     <Route element={<PrivateRoute/>}>

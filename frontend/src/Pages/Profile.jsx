@@ -78,36 +78,36 @@ const handleDeleteUser = async () => {
     }
   };
   
-  // const handleSignOut = async () => {
-  //   dispatch(signOutUserStart());
-  //   try {
-  //     const response = await fetch('http://localhost:3000/api/auth/signout');
-  //     const data = await response.json();
+  const handleSignOut = async () => {
+    dispatch(signOutUserStart());
+    try {
+      const response = await fetch('http://localhost:3000/api/auth/signout');
+      const data = await response.json();
 
-  //     if (!response.ok) {
-  //       dispatch(deleteUserFailure(data.message || 'Failed to sign out.'));
-  //       return;
-  //     }
+      if (!response.ok) {
+        dispatch(deleteUserFailure(data.message || 'Failed to sign out.'));
+        return;
+      }
 
-  //     dispatch(deleteUserSuccess(data));
-  //   } catch (error) {
-  //     dispatch(deleteUserFailure('An unexpected error occurred.'));
-  //   }
-  // };
-
-  const handleSignOut = () => {
-    // Clear the JWT token stored on the client side
-    localStorage.removeItem('token');  // Or use sessionStorage if you're using that
-  
-    // Optionally, you could call your backend to clear any server-side session if you want to.
-    axios.post('http://localhost:3000/api/signout')
-      .then(response => {
-        console.log(response.data); // 'User has been logged out!'
-      })
-      .catch(error => {
-        console.error('Error logging out:', error);
-      });
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure('An unexpected error occurred.'));
+    }
   };
+
+  // const handleSignOut = () => {
+  //   // Clear the JWT token stored on the client side
+  //   localStorage.removeItem('token');  // Or use sessionStorage if you're using that
+  
+  //   // Optionally, you could call your backend to clear any server-side session if you want to.
+  //   axios.post('http://localhost:3000/api/auth/signout')
+  //     .then(response => {
+  //       console.log(response.data); // 'User has been logged out!'
+  //     })
+  //     .catch(error => {
+  //       console.error('Error logging out:', error);
+  //     });
+  // };
   
   const handleShowListings = async () => {
     setShowListingsError(false);

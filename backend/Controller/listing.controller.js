@@ -1,6 +1,7 @@
 import Listing from '../models/listing.model.js';
 import { errorHandler } from '../utils/error.js';
 import cloudinary from '../config/cloudinaryConfig.js';
+import User from '../models/user.model.js';
 
 export const createListing = async (req, res, next) => {
   try {
@@ -117,6 +118,30 @@ export const getListings = async (req, res, next) => {
       .skip(startIndex);
 
     res.status(200).json(listings);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const toggleSaveListing = async (req, res, next) => {
+  try {
+    const listingId = req.body.listingId;
+    const user = await User.findById(req.params.id);
+
+    if (!user) return next(errorHandler(404, 'User not found!'));
+
+    // Toggle saved post
+    if (user.savedPosts.includes(listingId)) {
+      // If already saved, remove from savedPosts
+      user.savedPosts = user.savedPosts.filter(id => id.toString() !== listingId);
+    } else {
+      // If not saved, add to savedPosts
+      user.savedPosts.push(listingId);
+    }
+
+    await user.save(); // Save updated user
+
+    res.status(200).json({ savedPosts: user.savedPosts }); // Return updated list of saved posts
   } catch (error) {
     next(error);
   }

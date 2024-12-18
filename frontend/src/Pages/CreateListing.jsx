@@ -20,6 +20,9 @@ export default function CreateListing() {
     parking: false,
     furnished: false,
   });
+
+
+  
   const [imageUploadError, setImageUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(false);
@@ -144,8 +147,10 @@ export default function CreateListing() {
         },
         body: JSON.stringify({
           ...formData,
-          userRef: currentUser._id, // Attach the user reference
+          userRef: currentUser._id,
+          category: formData.category, // Ensure category is sent to the backend
         }),
+        
       });
   
       const data = await res.json();
@@ -174,6 +179,7 @@ export default function CreateListing() {
       <h1 className='text-3xl font-semibold text-center my-7'>
         Create a Listing
       </h1>
+
       <form onSubmit={handleSubmit} className='flex flex-col sm:flex-row gap-4'>
         <div className='flex flex-col gap-4 flex-1'>
           <input

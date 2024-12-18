@@ -134,3 +134,14 @@ export const getUser = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getSavedPosts = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id).populate('savedPosts');
+    if (!user) return next(errorHandler(404, 'User not found!'));
+    
+    res.status(200).json(user.savedPosts); // Return the saved posts
+  } catch (error) {
+    next(error);
+  }
+};
