@@ -67,8 +67,7 @@ export const signin = async (req, res, next) => {
     // Generate JWT token
     const token = jwt.sign({ userId: validUser._id }, 'secretkeyofrealestateapp123@#', { expiresIn: '5h' });
 
-
-    console.log('Generated Token:', token);
+    
 
     // Destructure to exclude password from the response
     const { password: pass, ...rest } = validUser._doc;

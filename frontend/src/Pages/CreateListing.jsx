@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import mongoose from 'mongoose';
+
 
 export default function CreateListing() {
   const { currentUser } = useSelector((state) => state.user);
@@ -11,6 +13,8 @@ export default function CreateListing() {
     name: '',
     description: '',
     address: '',
+    city:'',
+    colony:'',
     type: 'rent',
     bedrooms: 1,
     bathrooms: 1,
@@ -114,65 +118,157 @@ export default function CreateListing() {
     }
   };
 
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+  
+//     try {
+//       // Validate form data
+//       if (formData.imageUrls.length < 1) {
+//         return setError('You must upload at least one image');
+//       }
+  
+//       if (+formData.regularPrice < +formData.discountPrice) {
+//         return setError('Discount price must be lower than regular price');
+//       }
+  
+//       // Prepare for API request
+//       setLoading(true);
+//       setError(false);
+  
+//       const token = currentUser.token; // Retrieve token from local storage
+  
+//       if (!token) {
+//         setLoading(false);
+//         return setError('You must be logged in to create a listing');
+//       }
+  
+//       // Make the API request
+//       const res = await fetch('http://localhost:3000/api/listing/create', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+//         },
+//         body: JSON.stringify({
+//           ...formData,
+//           userRef: currentUser._id,
+//           category: formData.category, // Ensure category is sent to the backend
+//         }),
+        
+//       });
+  
+//       const data = await res.json();
+  
+//       setLoading(false);
+  
+//       if (!res.ok) {
+//         // Handle server errors
+//         return setError(data.message || 'Failed to create listing');
+//       }
+  
+//       // Navigate to the listing page
+//       console.log(data)
+//       console.log('listing created successfully');
+//       console.log(currentUser)
+//       navigate(`/listing/${data._id}`);
+//     } catch (error) {
+//       // Handle unexpected errors
+//       console.error('Error creating listing:', error);
+//       setError(error.message || 'An unexpected error occurred');
+//       setLoading(false);
+//     }
+//   };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    // setLoading(true);
+
     try {
-      // Validate form data
       if (formData.imageUrls.length < 1) {
-        return setError('You must upload at least one image');
-      }
+                return setError('You must upload at least one image');
+              }
+          
+              if (+formData.regularPrice < +formData.discountPrice) {
+                return setError('Discount price must be lower than regular price');
+              }
+          
+              // Prepare for API request
+      //         setLoading(true);
+      //         setError(false);
+          
+      //         const token = currentUser.token; // Retrieve token from local storage
+          
+      //         if (!token) {
+      //           setLoading(false);
+      //           return setError('You must be logged in to create a listing');
+      //         }
+          
+      
+      // const res = await fetch('http://localhost:3000/api/listing/create', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     Authorization: `Bearer ${currentUser.token}`,
+      //   },
+      //   body: JSON.stringify({
+      //     ...formData,
+      //     userRef: currentUser._id,
+      //     category: formData.category,
+      //   }),
+      // });
+
+      // const data = await res.json();
+
+      // setLoading(false);
+
+      // if (!res.ok) {
+      //   return setError(data.message || 'Failed to create listing');
+      // }
+
+      //navigate('/subscription', { state: { listingId: data._id, listingData: data } });
+
+      // const mockListingId = 'mockListingId-' + Date.now(); 
+      // const mockData = {
+      //   _id: mockListingId,
+      //   ...formData,
+      // };
   
-      if (+formData.regularPrice < +formData.discountPrice) {
-        return setError('Discount price must be lower than regular price');
-      }
-  
-      // Prepare for API request
-      setLoading(true);
-      setError(false);
-  
-      const token = currentUser.token; // Retrieve token from local storage
-  
-      if (!token) {
-        setLoading(false);
-        return setError('You must be logged in to create a listing');
-      }
-  
-      // Make the API request
-      const res = await fetch('http://localhost:3000/api/listing/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+      // // Navigate to the subscription page with mock data
+      // navigate('/subscription', { state: { listingId: mockData._id, listingData: mockData } 
+//       const generateListingId = () => mongoose.Types.ObjectId(); // Creates a valid ObjectId
+
+// const listingId = generateListingId();
+
+//       console.log(listingId);
+      const amount = formData.offer
+        ? formData.discountPrice
+        : formData.regularPrice;
+
+      // Mock API success response
+      const mockData = {
+        //_id: listingId,
+        ...formData,
+        userRef: currentUser._id,
+        amount,
+      };
+
+      // Navigate to the subscription page with mock data
+      navigate('/subscription', {
+        state: {
+          // listingId: mockData._id,
+          listingData: mockData,
+          userId: currentUser._id,
+          amount,
         },
-        body: JSON.stringify({
-          ...formData,
-          userRef: currentUser._id,
-          category: formData.category, // Ensure category is sent to the backend
-        }),
-        
       });
-  
-      const data = await res.json();
-  
-      setLoading(false);
-  
-      if (!res.ok) {
-        // Handle server errors
-        return setError(data.message || 'Failed to create listing');
-      }
-  
-      // Navigate to the listing page
-      console.log('listing created successfully');
-      console.log(currentUser)
-      navigate(`/listing/${currentUser._id}`);
-    } catch (error) {
-      // Handle unexpected errors
-      console.error('Error creating listing:', error);
-      setError(error.message || 'An unexpected error occurred');
-      setLoading(false);
+    } catch (err) {
+      //setLoading(false);
+      console.log(err);
+      setError('An error occurred while creating the listing');
     }
   };
+
   
   return (
     <main className='p-3 max-w-4xl mx-auto'>
@@ -210,6 +306,24 @@ export default function CreateListing() {
             required
             onChange={handleChange}
             value={formData.address}
+          />
+          <input
+            type='text'
+            placeholder='Residential Area'
+            className='border p-3 rounded-lg'
+            id='colony'
+            required
+            onChange={handleChange}
+            value={formData.colony}
+          />
+          <input
+            type='text'
+            placeholder='City'
+            className='border p-3 rounded-lg'
+            id='city'
+            required
+            onChange={handleChange}
+            value={formData.city}
           />
           <div className='flex gap-6 flex-wrap'>
             <div className='flex gap-2'>

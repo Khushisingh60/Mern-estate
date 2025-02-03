@@ -2,6 +2,39 @@ import Listing from '../models/listing.model.js';
 import { errorHandler } from '../utils/error.js';
 import cloudinary from '../config/cloudinaryConfig.js';
 import User from '../models/user.model.js';
+import Alert from '../models/alert.model.js'
+import nodemailer from 'nodemailer';
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: "khushisingh0598@gmail.com",
+    pass: "feyx zrve ewvb gcap",
+  },
+});
+
+const notifyUsers = async (newListing) => {
+  try {
+    const matchingAlerts = await Alert.find({
+      $or: [{ location: 'any' }, { city: newListing.city }],
+      minPrice: { $lte: newListing.regularPrice },
+      maxPrice: { $gte: newListing.regularPrice },
+    });
+
+    for (const alert of matchingAlerts) {
+      const mailOptions = {
+        from: 'khushisingh0598@gmail.com',
+        to: alert.email,
+        subject: 'New Matching Listing Alert',
+        text: `A new listing matches your criteria:\n\n${newListing.name}\n${newListing.description}\nPrice: $${newListing.regularPrice}\nLocation: ${newListing.city}, ${newListing.colony}\n\nVisit our platform for more details.`,
+      };
+
+      await transporter.sendMail(mailOptions);
+    }
+  } catch (error) {
+    console.error('Error sending notification emails:', error);
+  }
+};
 
 export const createListing = async (req, res, next) => {
   try {
@@ -14,6 +47,7 @@ export const createListing = async (req, res, next) => {
 
     // Create the listing
     const listing = await Listing.create({ ...data, imageUrls });
+    notifyUsers(listing);
     res.status(201).json(listing);
   } catch (error) {
     next(error);

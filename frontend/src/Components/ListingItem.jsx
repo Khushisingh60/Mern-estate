@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { MdLocationOn } from 'react-icons/md';
+import { MdLocationOn, MdLocationCity, MdCropSquare } from 'react-icons/md';
 
 export default function ListingItem({ listing }) {
   return (
@@ -21,6 +21,18 @@ export default function ListingItem({ listing }) {
             <MdLocationOn className='h-4 w-4 text-green-700' />
             <p className='text-sm text-gray-600 truncate w-full'>
               {listing.address}
+            </p>
+          </div>
+          <div className='flex items-center gap-1'>
+            <MdLocationCity className='h-4 w-4 text-blue-700' />
+            <p className='text-sm text-gray-600 truncate'>
+              {listing.city}
+            </p>
+          </div>
+          <div className='flex items-center gap-1'>
+            <MdCropSquare className='h-4 w-4 text-orange-700' />
+            <p className='text-sm text-gray-600 truncate'>
+              {listing.colony}
             </p>
           </div>
           <p className='text-sm text-gray-600 line-clamp-2'>
@@ -50,4 +62,3 @@ export default function ListingItem({ listing }) {
     </div>
   );
 }
-

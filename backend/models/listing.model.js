@@ -5,6 +5,8 @@ const ListingSchema = new mongoose.Schema(
     name: { type: String, required: true },
     description: { type: String, required: true },
     address: { type: String, required: true },
+    colony: { type: String, required: true },
+    city: { type: String, required: true },
     type: { type: String, enum: ['sale', 'rent'], required: true },
     bedrooms: { type: Number, required: true },
     bathrooms: { type: Number, required: true },
