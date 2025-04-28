@@ -56,7 +56,7 @@ export default function Home() {
           <br />
           place with ease
         </h1>
-        <div className='text-gray-400 text-xs sm:text-sm'>
+        <div className='text-gray-400 text-sm sm:text-lg '>
           Estate Ease is the best place to find your next perfect place to
           live.
           <br />
@@ -64,7 +64,7 @@ export default function Home() {
         </div>
         <Link
           to={'/search'}
-          className='text-xs sm:text-sm text-blue-800 font-bold hover:underline'
+          className='text-xs sm:text-lg text-blue-800 font-bold '
         >
           Let's get started...
         </Link>
@@ -95,7 +95,7 @@ export default function Home() {
           <div className=''>
             <div className='my-3'>
               <h2 className='text-2xl font-semibold text-slate-600'>Recent offers</h2>
-              <Link className='text-sm text-blue-800 hover:underline' to={'/search?offer=true'}>Show more offers</Link>
+              <Link className='text-sm text-blue-800 ' to={'/search?offer=true'}>Show more offers</Link>
             </div>
             <div className='flex flex-wrap gap-4'>
               {offerListings.map((listing) => (
@@ -108,7 +108,7 @@ export default function Home() {
           <div className=''>
             <div className='my-3'>
               <h2 className='text-2xl font-semibold text-slate-600'>Recent places for rent</h2>
-              <Link className='text-sm text-blue-800 hover:underline' to={'/search?type=rent'}>Show more places for rent</Link>
+              <Link className='text-sm text-blue-800 ' to={'/search?type=rent'}>Show more places for rent</Link>
             </div>
             <div className='flex flex-wrap gap-4'>
               {rentListings.map((listing) => (
@@ -121,7 +121,7 @@ export default function Home() {
           <div className=''>
             <div className='my-3'>
               <h2 className='text-2xl font-semibold text-slate-600'>Recent places for sale</h2>
-              <Link className='text-sm text-blue-800 hover:underline' to={'/search?type=sale'}>Show more places for sale</Link>
+              <Link className='text-sm text-blue-800 ' to={'/search?type=sale'}>Show more places for sale</Link>
             </div>
             <div className='flex flex-wrap gap-4'>
               {saleListings.map((listing) => (

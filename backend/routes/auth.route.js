@@ -99,7 +99,7 @@
 
 // export default router;
 import express from 'express';
-import { google, signOut, signin, signup } from '../Controller/auth.controller.js';
+import { google, signOut, signin, signup ,sendOtp,verifyOtp} from '../Controller/auth.controller.js';
 
 const router = express.Router();
 
@@ -107,5 +107,7 @@ router.post("/signup", signup);
 router.post("/signin", signin);
 router.post('/google', google);
 router.get('/signout', signOut)
+router.post('/send-otp', sendOtp);
+router.post('/verify-otp', verifyOtp);
 
 export default router;

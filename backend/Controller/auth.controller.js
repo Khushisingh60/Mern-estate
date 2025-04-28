@@ -53,34 +53,137 @@ export const signup = async (req, res, next) => {
 
 
 
+// export const signin = async (req, res, next) => {
+//   const { email, password } = req.body;
+//   console.log(req.body);
+
+//   try {
+//     const validUser = await User.findOne({ email });
+//     if (!validUser) return next(errorHandler(404, 'User not found!'));
+
+//     const validPassword = await bcrypt.compare(password, validUser.password);
+//     if (!validPassword) return next(errorHandler(401, 'Wrong credentials!'));
+
+//     // Generate JWT token
+//     const token = jwt.sign({ userId: validUser._id }, 'secretkeyofrealestateapp123@#', { expiresIn: '5h' });
+
+    
+
+//     // Destructure to exclude password from the response
+//     const { password: pass, ...rest } = validUser._doc;
+
+//     // Send token in the response body
+//     res.status(200).json({
+//       ...rest,
+//       token, // Add token to the response so the client can use it
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+import nodemailer from 'nodemailer';
+
+const otpStore = {}; // Temporary store for OTPs (Use Redis or DB in production)
+
+// Configure Nodemailer
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: 'khushisingh0598@gmail.com', // Your email
+    pass: "ryvp tdtd wksn yutl", // App password
+  },
+});
+
+export const sendOtp = async (req, res, next) => {
+  const { email } = req.body;
+  
+  if (!email) return res.status(400).json({ error: 'Email is required' });
+
+  try {
+    const otp = Math.floor(100000 + Math.random() * 900000).toString(); // Generate 6-digit OTP
+    console.log(otp);
+    otpStore[email] = { otp, expiresAt: Date.now() + 5 * 60 * 1000 }; // Store OTP for 5 minutes
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: 'Your OTP Code',
+      text: `Your OTP code is ${otp}. It expires in 5 minutes.`,
+    };
+
+    await transporter.sendMail(mailOptions);
+    res.status(200).json({ message: 'OTP sent successfully!' ,
+      success:true
+     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const verifyOtp = async (req, res, next) => {
+  const { email, otp } = req.body;
+  
+  if (!email || !otp) return res.status(400).json({ error: 'Email and OTP are required' });
+
+  try {
+    const storedOtpData = otpStore[email];
+    if (!storedOtpData || storedOtpData.otp !== otp || Date.now() > storedOtpData.expiresAt) {
+      return res.status(400).json({ error: 'Invalid or expired OTP' });
+    }
+
+    delete otpStore[email]; // Remove OTP after successful verification
+    res.status(200).json({ message: 'OTP verified successfully!',success:true });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+
 export const signin = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password,role } = req.body;
   console.log(req.body);
 
   try {
     const validUser = await User.findOne({ email });
     if (!validUser) return next(errorHandler(404, 'User not found!'));
 
+    
+    console.log(password);
+    // console.log(validUser.password);
+    
+     
     const validPassword = await bcrypt.compare(password, validUser.password);
+    console.log(password);
+    console.log(validUser.password);
     if (!validPassword) return next(errorHandler(401, 'Wrong credentials!'));
 
-    // Generate JWT token
-    const token = jwt.sign({ userId: validUser._id }, 'secretkeyofrealestateapp123@#', { expiresIn: '5h' });
+    if (validUser.role !== role) {
+      return next(errorHandler(403, 'Unauthorized: Incorrect role!'));
+    }
 
-    
+
+    // Generate JWT token with role included
+    const token = jwt.sign(
+      { userId: validUser._id, role: validUser.role }, // Include role
+      'secretkeyofrealestateapp123@#',
+      { expiresIn: '5h' }
+    );
 
     // Destructure to exclude password from the response
     const { password: pass, ...rest } = validUser._doc;
 
-    // Send token in the response body
+    // Send token and role in the response
     res.status(200).json({
       ...rest,
-      token, // Add token to the response so the client can use it
+      token, // Add token
+      role: validUser.role, // Add role
     });
   } catch (error) {
     next(error);
   }
 };
+
 
 export const google = async (req, res, next) => {
   try {
