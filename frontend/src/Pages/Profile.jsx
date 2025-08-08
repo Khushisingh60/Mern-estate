@@ -219,7 +219,7 @@ import {
   deleteUserStart,
   deleteUserSuccess,
   signOutUserStart,
-} from '../redux/user/userSlice';
+} from '../redux/user/userSlice.js';
 
 export default function Profile() {
   const { currentUser, loading, error } = useSelector((state) => state.user);

@@ -1,24 +1,24 @@
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import SignOut from './Pages/SignOut';
-import Signin from './Pages/Signin';
-import About from './Pages/About';
-import Profile from './Pages/Profile';
-import Home from './Pages/Home';
-import Header from './Components/Header';
-import SavedPosts from './Pages/SavedPosts';
-import NewsList from './Pages/NewsList';
-import PrivateRoute from './Components/PrivateRoute';
-import CreateListing from './Pages/CreateListing';
-import UpdateListing from './Pages/UpdateListing';
-import Listing from './Pages/Listing';
-import Search from './Pages/Search';
-import CreateAlert from './Pages/CreateAlert';
-import SubscriptionPage from './Pages/SubscriptionPage';
+import SignOut from './Pages/SignOut.jsx';
+import Signin from './Pages/Signin.jsx';
+import About from './Pages/About.jsx';
+import Profile from './Pages/Profile.jsx';
+import Home from './Pages/Home.jsx';
+import Header from './Components/Header.jsx';
+import SavedPosts from './Pages/SavedPosts.jsx';
+import NewsList from './Pages/NewsList.jsx';
+import PrivateRoute from './Components/PrivateRoute.jsx';
+import CreateListing from './Pages/CreateListing.jsx';
+import UpdateListing from './Pages/UpdateListing.jsx';
+import Listing from './Pages/Listing.jsx';
+import Search from './Pages/Search.jsx';
+import CreateAlert from './Pages/CreateAlert.jsx';
+import SubscriptionPage from './Pages/SubscriptionPage.jsx';
 import AdminRoute from './Components/AdminROute.jsx';
 import Admin from './Pages/Admin.jsx';
 import Inbox from './Pages/Inbox.jsx';
-import { SocketProvider } from './Context/SocketContext'; // Import the SocketProvider
+import { SocketProvider } from './Context/SocketContext.jsx'; // Import the SocketProvider
 
 export default function App() {
   return (
