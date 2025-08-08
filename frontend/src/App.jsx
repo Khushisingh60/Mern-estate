@@ -5,7 +5,7 @@ import Signin from './Pages/Signin.jsx';
 import About from './Pages/About.jsx';
 import Profile from './Pages/Profile.jsx';
 import Home from './Pages/Home.jsx';
-import Header from './components/Header.jsx';
+import Header from './components/Header.jsx'
 import SavedPosts from './Pages/SavedPosts.jsx';
 import NewsList from './Pages/NewsList.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
