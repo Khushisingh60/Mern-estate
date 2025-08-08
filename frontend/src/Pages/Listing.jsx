@@ -17,7 +17,7 @@ import {
   FaShare,
   FaHeart,
 } from "react-icons/fa";
-import Contact from "../Components/Contact";
+import Contact from "../components/Contact";
 
 export default function Listing() {
   SwiperCore.use([Navigation]);
