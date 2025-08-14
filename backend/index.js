@@ -33,7 +33,7 @@ app.use(cookieParser());
 // In your server.js file:
 
 app.use(cors({
-  origin: 'https://mern-estate-p8u6-6tlzkm9ln-khushi-singhs-projects-d14f457b.vercel.app', // Your frontend URL
+  origin: "*", // Your frontend URL
   credentials: true,
   allowedHeaders: ['Authorization', 'Content-Type'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
@@ -179,7 +179,7 @@ app.use((err, req, res, next) => {
 // ========== SOCKET.IO ==========
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:5173',
+    origin: '*',
     methods: ['GET', 'POST'],
     credentials: true,
   },
