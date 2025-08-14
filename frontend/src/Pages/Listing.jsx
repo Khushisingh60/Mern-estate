@@ -40,7 +40,7 @@ export default function Listing() {
       try {
         setLoading(true);
         const { data } = await axios.get(
-          `http://localhost:3000/api/listing/get/${params.listingId}`
+          `${import.meta.env.VITE_API_BASE_URL}/api/listing/get/${params.listingId}`
         );
         if (!data || data.success === false) {
           console.error("API responded with an error:", data);
@@ -65,7 +65,7 @@ export default function Listing() {
       if (saved.has(listingId)) {
         console.log("saved")
         const response = await axios.delete(
-          `http://localhost:3000/api/user/unsave/${currentUser._id}`,
+          `${import.meta.env.VITE_API_BASE_URL}/api/user/unsave/${currentUser._id}`,
           { data: { listingId } } // Pass the listingId in the request body
         );
   
@@ -73,7 +73,7 @@ export default function Listing() {
         setSaved(new Set(updatedSavedPosts));
       } else {
         const response = await axios.post(
-          `http://localhost:3000/api/user/save/${currentUser._id}`,
+          `${import.meta.env.VITE_API_BASE_URL}/api/user/save/${currentUser._id}`,
           { listingId }
         );
   

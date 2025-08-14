@@ -14,7 +14,7 @@ export default function SavedPosts() {
     if (currentUser) {
       console.log(currentUser);
       axios
-        .get(`http://localhost:3000/api/user/saved/${currentUser._id}`)
+        .get(`${import.meta.env.VITE_API_BASE_URL}/api/user/saved/${currentUser._id}`)
         .then((response) => {
           setSavedListings(response.data);
           setLoading(false);

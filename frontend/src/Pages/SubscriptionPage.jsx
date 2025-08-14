@@ -144,7 +144,7 @@ const SubscriptionPage = () => {
 
   const handlePayment = async (plan) => {
     try {
-      const res = await fetch('http://localhost:3000/api/payment/create-order', {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/payment/create-order`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -182,7 +182,7 @@ const SubscriptionPage = () => {
             signature: response.razorpay_signature,
           };
 
-          const verifyRes = await fetch('http://localhost:3000/api/payment/verify', {
+          const verifyRes = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/payment/verify`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -197,7 +197,7 @@ const SubscriptionPage = () => {
             throw new Error(verifyData.message || 'Payment verification failed');
           }
 
-          const listingRes = await fetch('http://localhost:3000/api/listing/create', {
+          const listingRes = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/listing/create`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

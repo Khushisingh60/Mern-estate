@@ -38,7 +38,7 @@ export default function SignUp() {
     try {
       setLoading(true);
       console.log('Sending OTP request...');
-      const res = await axios.post('http://localhost:3000/api/auth/send-otp', { email: formData.email }, {
+      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/send-otp`, { email: formData.email }, {
         headers: { 'Content-Type': 'application/json' },
       });
   
@@ -74,7 +74,7 @@ export default function SignUp() {
     try {
       setLoading(true);
       console.log('Verifying OTP...');
-      const res = await axios.post('http://localhost:3000/api/auth/verify-otp', { email: formData.email, otp }, {
+      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/verify-otp`, { email: formData.email, otp }, {
         headers: { 'Content-Type': 'application/json' },
       });
 
@@ -88,7 +88,7 @@ export default function SignUp() {
 
       // Proceed with signup after OTP verification
       console.log('Signing Up User...');
-      const signupRes = await axios.post('http://localhost:3000/api/auth/signup', formData, {
+      const signupRes = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/signup`, formData, {
         headers: { 'Content-Type': 'application/json' },
       });
 

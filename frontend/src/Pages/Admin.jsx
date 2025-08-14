@@ -11,7 +11,7 @@ export default function Admin() {
     const fetchListings = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("http://localhost:3000/api/admin/listings", {
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/admin/listings`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -38,7 +38,7 @@ export default function Admin() {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:3000/api/admin/listings/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/admin/listings/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

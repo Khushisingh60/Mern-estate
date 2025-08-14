@@ -251,7 +251,7 @@ export default function Profile() {
     e.preventDefault();
     dispatch(updateUserStart());
     try {
-      const res = await fetch(`http://localhost:3000/api/user/update/${currentUser._id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/update/${currentUser._id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -271,7 +271,7 @@ export default function Profile() {
   const handleSignOut = async () => {
     dispatch(signOutUserStart());
     try {
-      const res = await fetch('http://localhost:3000/api/auth/signout');
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/signout`);
       const data = await res.json();
       if (!res.ok) return dispatch(deleteUserFailure(data.message));
       dispatch(deleteUserSuccess(data));
@@ -292,7 +292,7 @@ export default function Profile() {
             return;
           }
     
-          const response = await fetch(`http://localhost:3000/api/user/listings/${currentUser._id}`, {
+          const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/listings/${currentUser._id}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -315,7 +315,7 @@ export default function Profile() {
 
   const handleFetchInbox = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/api/user/inbox/${currentUser._id}`);
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/inbox/${currentUser._id}`);
       const data = await res.json();
       if (!res.ok) throw new Error();
       setInboxMessages(data);
@@ -327,7 +327,7 @@ export default function Profile() {
   const handleSelectChat = async (chatId) => {
     setSelectedChat(chatId);
     try {
-      const res = await fetch(`http://localhost:3000/api/user/chat/${chatId}`);
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/chat/${chatId}`);
       const data = await res.json();
       if (!res.ok) throw new Error();
       setChatMessages(data);
@@ -339,7 +339,7 @@ export default function Profile() {
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
     try {
-      const res = await fetch(`http://localhost:3000/api/user/chat/${selectedChat}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/chat/${selectedChat}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ senderId: currentUser._id, message: newMessage }),

@@ -21,7 +21,7 @@ export default function Inbox() {
   useEffect(() => {
     if (!currentUser) return;
     
-    socketRef.current = io('http://localhost:3000');
+    socketRef.current = io(`${import.meta.env.VITE_API_BASE_URL}`);
     socketRef.current.emit('registerUser', currentUser._id);
     
     // Handle incoming messages
@@ -50,7 +50,7 @@ export default function Inbox() {
     if (!currentUser) return;
     
     try {
-      const res = await fetch(`http://localhost:3000/api/chat/chats/${currentUser._id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/chat/chats/${currentUser._id}`, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
         },
@@ -85,7 +85,7 @@ export default function Inbox() {
     setError(null);
     
     try {
-      const res = await fetch(`http://localhost:3000/api/chat/messages/${chatId}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/chat/messages/${chatId}`, {
         headers: {
           Authorization: `Bearer ${currentUser.token}`,
         },
@@ -116,7 +116,7 @@ export default function Inbox() {
         (p) => p._id !== currentUser._id
       ); // ✅ Move this to the top before using it
   
-      const res = await fetch(`http://localhost:3000/api/chat/send`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/chat/send`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

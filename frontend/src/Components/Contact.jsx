@@ -79,7 +79,7 @@ export default function Contact({ listing }) {
     if (!currentUser) return;
     
     // Connect to Socket.IO server
-    socketRef.current = io('http://localhost:3000');
+    socketRef.current = io(`${import.meta.env.VITE_API_BASE_URL}`);
     socketRef.current.emit('registerUser', currentUser._id);
 
     return () => {
@@ -92,7 +92,7 @@ export default function Contact({ listing }) {
   useEffect(() => {
     const fetchLandlord = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/user/${listing.userRef}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/${listing.userRef}`, {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
@@ -122,7 +122,7 @@ export default function Contact({ listing }) {
     
     try {
       // Send message using REST API
-      const res = await fetch('http://localhost:3000/api/chat/send', {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/chat/send`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

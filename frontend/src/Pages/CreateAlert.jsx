@@ -16,7 +16,7 @@ function CreateAlert() {
       try {
         console.log(decodedToken)
         console.log(userId);
-        const response = await axios.get(`http://localhost:3000/api/users/${userId}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/users/${userId}`);
         console.log(response.data.email);
         setUserEmail(response.data.email);
       } catch (error) {
@@ -45,7 +45,7 @@ function CreateAlert() {
         location: formData.location || 'any', // Default to 'any' if location is not provided
       };
 
-      const res = await axios.post('http://localhost:3000/api/alerts', alertData, {
+      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/alerts`, alertData, {
         headers: { 'Content-Type': 'application/json' },
       });
 
