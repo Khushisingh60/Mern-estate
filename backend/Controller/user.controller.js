@@ -146,20 +146,20 @@ export const getSavedPosts = async (req, res, next) => {
   }
 };
 
-export const getNews = async (req, res, next) => {
+export const getNews = async(req, res) => {
+  console.log("🔔 /news route was hit");
   try {
-    const response = await fetch(
-      "https://newsapi.org/v2/everything?q=real+estate&apiKey=f09ff51d010c4e5ebc29a0ef5b485f47"
-    );
+    const { data } = await axios.get("https://newsapi.org/v2/everything", {
+      params: {
+  q: "real estate",
+  apiKey: "6dcc6cbcb5aa45a1a62050b2096c08f0",
+},
 
-    // Parse the response to JSON
-    const data = await response.json();
-    console.log(data);
-    // Send parsed JSON to the frontend
-    res.status(200).json(data);
-
+    });
+    res.json(data);
   } catch (err) {
-    console.error("Error fetching news:", err);
-    res.status(500).json({ error: "Failed to fetch news" });
+    console.error("Error fetching news:", err.message);
+    console.error("Error details:", err.response?.data);
+    res.status(500).json({ error: err.message });
   }
-};
+}
