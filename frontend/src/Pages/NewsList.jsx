@@ -9,7 +9,7 @@ const NewsList = () => {
 
   const getData = async () => {
      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/user/news`,{
-      linkWithCredential: true,
+       withCredential:true,
      });
     // const response = await fetch(
     //   "https://newsapi.org/v2/everything?q=real+estate&apiKey=f09ff51d010c4e5ebc29a0ef5b485f47"
