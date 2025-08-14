@@ -33,7 +33,7 @@ app.use(cookieParser());
 // In your server.js file:
 
 app.use(cors({
-  origin: 'http://localhost:5173', // Your frontend URL
+  origin: 'https://mern-estate-p8u6-6tlzkm9ln-khushi-singhs-projects-d14f457b.vercel.app', // Your frontend URL
   credentials: true,
   allowedHeaders: ['Authorization', 'Content-Type'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
