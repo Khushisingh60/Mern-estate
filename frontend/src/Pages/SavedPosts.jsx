@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import ListingItem from "../components/ListingItem.jsx";
+import ListingItem from "../Components/ListingItem.jsx";
 
 export default function SavedPosts() {
   const { currentUser } = useSelector((state) => state.user); // Access current user from Redux
