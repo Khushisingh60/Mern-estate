@@ -151,8 +151,8 @@ export const getNews = async(req, res) => {
   try {
     const { data } = await axios.get("https://newsapi.org/v2/everything", {
       params: {
-  q: "real estate",
-  apiKey: "6dcc6cbcb5aa45a1a62050b2096c08f0",
+      q: "real estate",
+      apiKey: "f09ff51d010c4e5ebc29a0ef5b485f47"
 },
 
     });
