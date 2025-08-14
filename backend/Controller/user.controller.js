@@ -145,3 +145,15 @@ export const getSavedPosts = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getNews=async(req,res,next)=>{
+  try{
+    const response = await fetch(
+       "https://newsapi.org/v2/everything?q=real+estate&apiKey=f09ff51d010c4e5ebc29a0ef5b485f47"
+    );
+    res.status(200).json(response);
+    
+  }catch(err){
+    console.log(err);
+  }
+}

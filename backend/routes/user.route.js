@@ -1,5 +1,5 @@
 import express from 'express';
-import { deleteUser, test, updateUser,  getUserListings, getUser, getSavedPosts} from '../Controller/user.controller.js';
+import { deleteUser, test, updateUser,  getUserListings, getUser, getSavedPosts ,getNews} from '../Controller/user.controller.js';
 import { verifyToken } from '../utils/verifyUser.js';
 
 import User from '../models/user.model.js';
@@ -11,6 +11,7 @@ router.post('/update/:id', verifyToken, updateUser)
 router.delete('/delete/:id', verifyToken, deleteUser)
 router.get('/listings/:id', verifyToken, getUserListings)
 router.get('/:id', verifyToken, getUser)
+router.get('/news',getNews );
 
 //router.get('/saved',verifyToken,getSavedPosts)
 
