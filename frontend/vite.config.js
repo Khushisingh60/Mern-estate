@@ -13,7 +13,7 @@ export default defineConfig({
   },
   plugins: [react()],
   build: {
-    outDir: '../backend/client/dist', // Ensure this matches your backend’s expected path
+    outDir: 'dist', // Ensure this matches your backend’s expected path
   }
 })
 
