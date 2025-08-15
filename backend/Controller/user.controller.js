@@ -147,20 +147,18 @@ export const getSavedPosts = async (req, res, next) => {
   }
 };
 
-export const getNews = async(req, res) => {
+export const getNews = async (req, res) => {
   console.log("🔔 /news route was hit");
   try {
     const { data } = await axios.get("https://newsapi.org/v2/everything", {
       params: {
-      q: "real estate",
-      apiKey: "f09ff51d010c4e5ebc29a0ef5b485f47"
-},
-
+        q: "real estate",
+        apiKey: process.env.NEWS_API_KEY
+      }
     });
     res.json(data);
   } catch (err) {
-    console.error("Error fetching news:", err.message);
-    console.error("Error details:", err.response?.data);
-    res.status(500).json({ error: err.message });
+    console.error("Error fetching news:", err.response?.data || err.message);
+    res.status(err.response?.status || 500).json({ error: err.message });
   }
-}
+};

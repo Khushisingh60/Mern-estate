@@ -9,18 +9,16 @@ const NewsList = () => {
   
 
   const getData = async () => {
-    console.log("news hits");
-     const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/user/news`,{
-       withCredential:true,
-     });
-    // const response = await fetch(
-    //   "https://newsapi.org/v2/everything?q=real+estate&apiKey=f09ff51d010c4e5ebc29a0ef5b485f47"
-    // );
-    const jsonData = response.data;
-    console.log(jsonData.articles);
-    let dt = jsonData.articles.slice(0, 10);
-    setNewsData(dt);
-  };
+  console.log("news hits");
+  const response = await axios.get(
+    `${import.meta.env.VITE_API_BASE_URL}/api/user/news`,
+    { withCredentials: true }
+  );
+  const jsonData = response.data;
+  console.log(jsonData.articles);
+  setNewsData(jsonData.articles.slice(0, 10));
+};
+
 
   useEffect(() => {
     getData();
