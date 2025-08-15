@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Card from './Card.jsx';
+import axios from 'axios';
 import { linkWithCredential } from 'firebase/auth';
 
 const NewsList = () => {
