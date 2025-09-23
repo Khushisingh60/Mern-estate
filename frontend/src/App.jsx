@@ -19,6 +19,7 @@ import AdminRoute from './Components/AdminROute.jsx';
 import Admin from './Pages/Admin.jsx';
 import Inbox from './Pages/Inbox.jsx';
 import { SocketProvider } from './Context/SocketContext.jsx'; // Import the SocketProvider
+import Footer from './Components/Footer.jsx';
 
 export default function App() {
   return (
@@ -47,6 +48,7 @@ export default function App() {
             <Route path="/update-listing/:listingId" element={<UpdateListing />} />
           </Route>
         </Routes>
+        <Footer/>
       </BrowserRouter>
     </SocketProvider>
   );

@@ -66,7 +66,7 @@ export default function Listing() {
         console.log("saved")
         const response = await axios.delete(
           `${import.meta.env.VITE_API_BASE_URL}/api/user/unsave/${currentUser._id}`,
-          { data: { listingId } } // Pass the listingId in the request body
+          { data: { listingId } } 
         );
   
         const updatedSavedPosts = response.data.savedPosts;
