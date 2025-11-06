@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { FaCalculator, FaChartLine, FaHandHoldingUsd } from 'react-icons/fa';
 
+// Note: Make sure react-icons is installed: npm install react-icons
+
 export default function Services() {
   const navigate = useNavigate();
 
