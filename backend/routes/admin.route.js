@@ -4,7 +4,7 @@ import { verifyAdmin } from '../utils/verifyAdmin.js';
 
 const router1 = express.Router();
 
-// Get all listings (Admin only)
+
 router1.get('/listings', verifyAdmin, async (req, res) => {
   try {
     const listings = await Listing.find();

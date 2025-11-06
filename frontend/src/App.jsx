@@ -20,6 +20,11 @@ import Admin from './Pages/Admin.jsx';
 import Inbox from './Pages/Inbox.jsx';
 import { SocketProvider } from './Context/SocketContext.jsx'; // Import the SocketProvider
 import Footer from './Components/Footer.jsx';
+import Services from './Pages/Services.jsx';
+import LoanCalculator from './Pages/LoanCalculator.jsx';
+import PricePredictor from './Pages/PricePredictor.jsx';
+import InvestmentAnalyzer from './Pages/InvestmentAnalyzer.jsx';
+
 
 export default function App() {
   return (
@@ -47,6 +52,11 @@ export default function App() {
             <Route path="/create-listing" element={<CreateListing />} />
             <Route path="/update-listing/:listingId" element={<UpdateListing />} />
           </Route>
+          {/* Services Routes */}
+        <Route path='/services' element={<Services />} />
+        <Route path='/services/loan-calculator' element={<LoanCalculator />} />
+        <Route path='/services/price-predictor' element={<PricePredictor />} />
+        <Route path='/services/investment-analyzer' element={<InvestmentAnalyzer />} />
         </Routes>
         <Footer/>
       </BrowserRouter>

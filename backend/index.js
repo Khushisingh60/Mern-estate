@@ -12,6 +12,7 @@ import cors from 'cors';
 import User from './models/user.model.js';
 import Chat from './models/chat.model.js';
 import paymentRouter from './routes/payment.route.js'
+import servicesRouter from './routes/services.route.js';
 
 import http from 'http';
 import { Server } from 'socket.io';
@@ -49,6 +50,7 @@ app.use('/api/listing', listingRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/chat', chatRouter);
 app.use('/api/payment',paymentRouter);
+app.use('/api/services', servicesRouter);
 
 // Save/Unsave logic
 app.post('/api/user/save/:userId', async (req, res) => {

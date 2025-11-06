@@ -170,10 +170,10 @@ export const signin = async (req, res, next) => {
       { expiresIn: '5h' }
     );
 
-    // Destructure to exclude password from the response
+    
     const { password: pass, ...rest } = validUser._doc;
 
-    // Send token and role in the response
+    
     res.status(200).json({
       ...rest,
       token, // Add token

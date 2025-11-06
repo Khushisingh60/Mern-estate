@@ -1,18 +1,11 @@
 
-import { FaBookmark, FaNewspaper, FaBell, FaInfoCircle } from 'react-icons/fa'; // Import alert icon
+// import { FaBookmark, FaNewspaper, FaBell, FaInfoCircle, FaConciergeBell } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 export default function Header() {
-  const { currentUser } = useSelector((state) => state.user); // Access current user from Redux state
+  const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
-
-  const handleSelectChange = (event) => {
-    const value = event.target.value;
-    if (value === 'apartment') navigate('/apartment');
-    else if (value === 'flats') navigate('/flats');
-    else if (value === 'property') navigate('/property');
-  };
 
   return (
     <header className="bg-slate-200 shadow-md">
@@ -25,41 +18,28 @@ export default function Header() {
           </h1>
         </Link>
 
-        {/* Dropdown Menu */}
-        {/* <form className="bg-slate-100 p-3 rounded-lg flex items-center">
-          <select
-            className="bg-transparent focus:outline-none w-24 sm:w-64"
-            defaultValue="default"
-            onChange={handleSelectChange}
-          >
-            <option value="default" disabled>
-              Choose option...
-            </option>
-            <option value="apartment">Apartment</option>
-            <option value="flats">Flats</option>
-            <option value="property">Property</option>
-          </select>
-        </form> */}
-
         {/* Navigation Links */}
         <ul className="flex gap-8 items-center text-lg">
-          {/* Home
-          <Link to="/">
-            <li className="hidden sm:inline text-slate-700 hover:underline">Home</li>
-          </Link> */}
-
           {/* About */}
           <Link to="/about">
-          <li className="text-slate-700 flex items-center gap-1">
+            <li className="text-slate-700 flex items-center gap-1 hover:text-slate-900">
               <FaInfoCircle className="text-slate-600" />
               <span className="hidden sm:inline">About</span>
             </li>
           </Link>
 
-          {/* Saved Posts - Show only if user is logged in */}
+          {/* Services - NEW */}
+          <Link to="/services">
+            <li className="text-slate-700 flex items-center gap-1 hover:text-slate-900">
+              <FaConciergeBell className="text-slate-600" />
+              <span className="hidden sm:inline">Services</span>
+            </li>
+          </Link>
+
+          {/* Saved Posts */}
           {currentUser && (
             <Link to={`/saved/${currentUser._id}`}>
-              <li className="text-slate-700  flex items-center gap-1">
+              <li className="text-slate-700 flex items-center gap-1 hover:text-slate-900">
                 <FaBookmark className="text-slate-600" />
                 <span className="hidden sm:inline">Saved</span>
               </li>
@@ -68,7 +48,7 @@ export default function Header() {
 
           {/* News Articles */}
           <Link to="/news">
-            <li className="text-slate-700  flex items-center gap-1">
+            <li className="text-slate-700 flex items-center gap-1 hover:text-slate-900">
               <FaNewspaper className="text-slate-600" />
               <span className="hidden sm:inline">News</span>
             </li>
@@ -76,7 +56,7 @@ export default function Header() {
 
           {/* Alert Icon */}
           <li
-            className="text-slate-700  flex items-center gap-1 cursor-pointer"
+            className="text-slate-700 flex items-center gap-1 cursor-pointer hover:text-slate-900"
             onClick={() => navigate('/create-alert')}
           >
             <FaBell className="text-slate-600" />
@@ -92,7 +72,7 @@ export default function Header() {
                 alt="profile"
               />
             ) : (
-              <li className="text-slate-700 ">Sign in</li>
+              <li className="text-slate-700 hover:underline">Sign in</li>
             )}
           </Link>
         </ul>
