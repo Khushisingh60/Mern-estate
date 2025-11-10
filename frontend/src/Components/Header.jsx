@@ -1,5 +1,6 @@
 import { FaBookmark, FaNewspaper, FaBell, FaInfoCircle, FaConciergeBell, FaHeart } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
+import { FaHeart } from 'react-icons/fa6';
 import { useSelector } from 'react-redux';
 
 export default function Header() {
