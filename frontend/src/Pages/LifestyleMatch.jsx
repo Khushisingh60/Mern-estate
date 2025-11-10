@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { FaDumbbell, FaCoffee, FaTree, FaDog, FaWifi, FaUtensils, FaShoppingCart, FaBus } from 'react-icons/fa';
+import { FaDumbbell, FaCoffee, FaTree, FaDog, FaWifi, FaUtensils, FaShoppingCart, FaBus, FaHeart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 export default function LifestyleMatch() {
