@@ -1,6 +1,6 @@
-import { FaBookmark, FaNewspaper, FaBell, FaInfoCircle, FaConciergeBell, FaHeart } from 'react-icons/fa';
+import { FaBookmark, FaNewspaper, FaBell, FaInfoCircle, FaConciergeBell, FaRegHeart } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaHeart } from 'react-icons/fa6';
+
 import { useSelector } from 'react-redux';
 
 export default function Header() {
@@ -40,7 +40,7 @@ export default function Header() {
           {currentUser && (
             <Link to="/lifestyle-match">
               <li className="text-slate-700 flex items-center gap-1 hover:text-slate-900">
-                <FaHeart className="text-rose-500" />
+                <FaRegHeart className="text-rose-500" />
                 <span className="hidden sm:inline">Lifestyle</span>
               </li>
             </Link>
